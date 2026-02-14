@@ -33,6 +33,28 @@ pipeline {
             }
         }
 
+        stage('Frogbot Scan') {
+            steps {
+                echo '--- Running Frogbot Security Scan ---'
+                withCredentials([
+                    string(credentialsId: 'jfrog-url', variable: 'JF_URL'),
+                    string(credentialsId: 'jfrog-access-token', variable: 'JF_ACCESS_TOKEN'),
+                    string(credentialsId: 'github-token', variable: 'JF_GIT_TOKEN')
+                ]) {
+                    withEnv([
+                        "JF_GIT_PROVIDER=github",
+                        "JF_GIT_OWNER=MohammedKamle",
+                        "JF_GIT_REPO=jenkins-jfrog-integration"
+                    ]) {
+                        sh '''
+                            curl -fLg "https://releases.jfrog.io/artifactory/frogbot/v2/[RELEASE]/getFrogbot.sh" | sh
+                            ./frogbot scan-repository
+                        '''
+                    }
+                }
+            }
+        }
+
         stage('Build & Deploy') {
             steps {
                 echo '--- Building project and deploying artifacts to JFrog ---'
