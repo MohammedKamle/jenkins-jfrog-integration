@@ -44,7 +44,8 @@ pipeline {
                         "JF_URL=https://mdk96.jfrog.io",
                         "JF_GIT_PROVIDER=github",
                         "JF_GIT_OWNER=MohammedKamle",
-                        "JF_GIT_REPO=jenkins-jfrog-integration"
+                        "JF_GIT_REPO=jenkins-jfrog-integration",
+                        "JF_GIT_BASE_BRANCH=main"
                     ]) {
                         sh '''
                             curl -fLg "https://releases.jfrog.io/artifactory/frogbot/v2/[RELEASE]/getFrogbot.sh" | sh
