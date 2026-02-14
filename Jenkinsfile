@@ -37,11 +37,11 @@ pipeline {
             steps {
                 echo '--- Running Frogbot Security Scan ---'
                 withCredentials([
-                    string(credentialsId: 'jfrog-url', variable: 'JF_URL'),
                     string(credentialsId: 'jfrog-access-token', variable: 'JF_ACCESS_TOKEN'),
                     string(credentialsId: 'github-token', variable: 'JF_GIT_TOKEN')
                 ]) {
                     withEnv([
+                        "JF_URL=https://mdk96.jfrog.io",
                         "JF_GIT_PROVIDER=github",
                         "JF_GIT_OWNER=MohammedKamle",
                         "JF_GIT_REPO=jenkins-jfrog-integration"
