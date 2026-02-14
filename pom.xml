@@ -7,7 +7,7 @@
 
     <groupId>com.example</groupId>
     <artifactId>demo-app</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>demo-app</name>
@@ -24,6 +24,11 @@
         <slf4j.version>2.0.12</slf4j.version>
         <logback.version>1.4.14</logback.version>
         <junit-jupiter.version>5.10.2</junit-jupiter.version>
+
+        <!-- VULNERABLE dependency versions (intentionally old for demo) -->
+        <log4j.version>2.14.1</log4j.version>
+        <jackson.version>2.9.8</jackson.version>
+        <commons-collections.version>3.2.1</commons-collections.version>
     </properties>
 
     <dependencies>
@@ -53,6 +58,32 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
+        </dependency>
+
+        <!-- VULNERABLE: Log4j 2.14.1 - CVE-2021-44228 (Log4Shell) -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- VULNERABLE: Jackson Databind 2.9.8 - CVE-2019-12086 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- VULNERABLE: Commons Collections 3.2.1 - CVE-2015-6420 (RCE) -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons-collections.version}</version>
         </dependency>
 
         <!-- JUnit 5 - testing -->

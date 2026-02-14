@@ -1,9 +1,12 @@
 package com.example;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the App class.
@@ -50,5 +53,32 @@ class AppTest {
     void testJoinWordsNotNull() {
         String result = App.joinWords("a", "b");
         assertNotNull(result);
+    }
+
+    // Tests for new vulnerable dependencies
+
+    @Test
+    void testSerializeToJson() throws Exception {
+        String json = App.serializeToJson(java.util.Map.of("key", "value"));
+        assertNotNull(json);
+        assertTrue(json.contains("key"));
+        assertTrue(json.contains("value"));
+    }
+
+    @Test
+    void testParseJson() throws Exception {
+        JsonNode node = App.parseJson("{\"name\":\"demo-app\",\"version\":\"1.0.1\"}");
+        assertEquals("demo-app", node.get("name").asText());
+        assertEquals("1.0.1", node.get("version").asText());
+    }
+
+    @Test
+    void testCheckNotEmpty() {
+        assertTrue(App.checkNotEmpty(Arrays.asList("a", "b")));
+    }
+
+    @Test
+    void testCheckNotEmptyWithEmptyList() {
+        assertFalse(App.checkNotEmpty(Collections.emptyList()));
     }
 }
