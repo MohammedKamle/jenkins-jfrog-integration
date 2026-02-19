@@ -9,7 +9,7 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Unit tests for the App class.
+ * Unit tests for the App claddss.
  */
 class AppTest {
 
