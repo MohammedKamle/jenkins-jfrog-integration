@@ -46,6 +46,13 @@ pipeline {
                 jf 'rt bp ${BUILD_NAME} ${BUILD_NUMBER}'
             }
         }
+
+        stage('Xray Build Scan') {
+            steps {
+                echo '--- Scanning build with JFrog Xray ---'
+                jf 'bs ${BUILD_NAME} ${BUILD_NUMBER}'
+            }
+        }
     }
 
     post {
